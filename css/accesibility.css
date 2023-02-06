@@ -1,0 +1,31 @@
+/*clases demo borrar al pasar a producción*/
+
+body {
+    font-size: 16px;
+}
+
+.h1-accesibility-demo {
+    font-size: 130%;
+}
+
+
+/*clases demo*/
+
+
+/*control de tamaño de fuente*/
+
+.accesibility-text-size {
+    position: fixed;
+    right: 0px;
+    height: 40px;
+    width: 70px;
+    font-size: 15px !important;
+    top: 150px;
+    border: 2px solid blue;
+    border-radius: 4px;
+    font-weight: 700;
+    color: blue;
+}
+
+
+/*control de tamaño de fuente*/
