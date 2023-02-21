@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="134" height="99" viewBox="0 0 134 99">
+  <g id="Group_8" data-name="Group 8" transform="translate(-734 -67)">
+    <rect id="Rectangle_3" data-name="Rectangle 3" width="134" height="99" transform="translate(734 67)" fill="none"/>
+    <g id="Group_7" data-name="Group 7" transform="translate(0.152 0.846)">
+      <path id="Path_32" data-name="Path 32" d="M352.025,62.262l-6.187-3.888a.8.8,0,0,1-.255-1.066.722.722,0,0,1,1.017-.267l5.438,3.417a.711.711,0,0,0,.752.006l5.673-3.445a.721.721,0,0,1,1.012.283.8.8,0,0,1-.27,1.062l-6.428,3.9a.713.713,0,0,1-.752-.006" transform="translate(448.297 66.578)" fill="#4937c1"/>
+      <path id="Path_33" data-name="Path 33" d="M345.577,37.435h0a.8.8,0,0,1,.27-1.062l6.428-3.9a.711.711,0,0,1,.752.006l6.187,3.888a.8.8,0,0,1,.255,1.065h0a.722.722,0,0,1-1.016.267l-5.439-3.417a.709.709,0,0,0-.752-.006l-5.673,3.445a.722.722,0,0,1-1.012-.283" transform="translate(448.297 66.578)" fill="#4937c1"/>
+      <path id="Path_34" data-name="Path 34" d="M329.551,17.669h0a2.093,2.093,0,0,1,2.093-2.093h41.764a2.093,2.093,0,1,1,0,4.186H331.644a2.093,2.093,0,0,1-2.093-2.093" transform="translate(448.297 66.578)" fill="#4937c1"/>
+      <path id="Path_35" data-name="Path 35" d="M329.551,27.081h0a2.093,2.093,0,0,1,2.093-2.093h41.764a2.093,2.093,0,1,1,0,4.186H331.644a2.093,2.093,0,0,1-2.093-2.093" transform="translate(448.297 66.578)" fill="#4937c1"/>
+      <path id="Path_36" data-name="Path 36" d="M329.551,70.637h0a2.093,2.093,0,0,1,2.093-2.093h41.764a2.093,2.093,0,1,1,0,4.186H331.644a2.093,2.093,0,0,1-2.093-2.093" transform="translate(448.297 66.578)" fill="#4937c1"/>
+      <path id="Path_37" data-name="Path 37" d="M329.551,80.059h0a2.093,2.093,0,0,1,2.093-2.093h41.764a2.093,2.093,0,1,1,0,4.186H331.644a2.093,2.093,0,0,1-2.093-2.093" transform="translate(448.297 66.578)" fill="#4937c1"/>
+      <line id="Line_1" data-name="Line 1" y2="0.5" transform="translate(800.823 104.401)" fill="none" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <line id="Line_2" data-name="Line 2" y2="9.243" transform="translate(800.823 109.765)" fill="none" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke-dasharray="0.973 4.865"/>
+      <line id="Line_3" data-name="Line 3" y2="0.5" transform="translate(800.823 121.441)" fill="none" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    </g>
+  </g>
+</svg>

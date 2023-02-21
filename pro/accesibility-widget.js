@@ -13,6 +13,17 @@ https://github.com/vtorresmz/accesibility
 Muchas gracias
 */
 
+
+/*variables de los botones*/
+var speakBtn = document.createElement("button");
+var btnHabilitar = document.createElement("button");
+var fontSizeButton = document.createElement("button");
+var btnAlternar = document.createElement("button");
+var lineHeightButton = document.createElement("button");
+var textalignButton = document.createElement("button");
+var fontFamilyButton = document.createElement("button");
+var accesibilityBoton = document.createElement("button");
+
 /*ingresar por enter a los contenidos*/
 document.addEventListener("keydown", function(event) {
     if (document.activeElement.tagName === "A" && event.key === "Enter") {
@@ -21,77 +32,109 @@ document.addEventListener("keydown", function(event) {
     }
 });
 /*ingresar por enter a los contenidos*/
-
 /*** *Accesibility lector de páginas web ***/
-var speakBton = document.createElement("button");
-speakBton.setAttribute("id", "speak-btn");
-speakBton.innerHTML = "Habilitar lectura";
-speakBton.setAttribute("onclick", "enableSpeech()");
-document.body.appendChild(speakBton);
-
-var speedRangeInput = document.createElement("input");
-speedRangeInput.setAttribute("type", "range");
-speedRangeInput.setAttribute("style", "display: none;");
-speedRangeInput.setAttribute("id", "speed-range");
-speedRangeInput.setAttribute("value", "0.5");
-speedRangeInput.setAttribute("min", "0.6");
-speedRangeInput.setAttribute("max", "0.9");
-speedRangeInput.setAttribute("step", "0.1");
-document.body.appendChild(speedRangeInput);
+/*** *Accesibility lector de páginas web ***/
 
 
-var speedRange = document.getElementById("speed-range");
-var speakBtn = document.getElementById("speak-btn");
-var isSpeaking = false;
-var state = 0;
 
-function enableSpeech() {
-    switch (state) {
-        case 0:
-            isSpeaking = true;
-            speakBtn.innerHTML = "Habilitar lectura";
-            speedRange.value = 0.0;
-            state = 1;
-            break;
-        case 1:
-            isSpeaking = false;
+function accesibilityread() {
+
+
+
+    speakBtn.classList.add("accesibility-widget", "accesibility-boton");
+    speakBtn.innerHTML = "Habilitar lectura";
+
+    document.body.appendChild(speakBtn);
+    speakBtn.addEventListener("click", toggleSpeech);
+
+    var isSpeaking = false;
+    var focusedElement = null;
+
+    function toggleSpeech() {
+        if (!isSpeaking) {
             speakBtn.innerHTML = "Deshabilitar lectura";
-            state = 2;
-            break;
-        default:
-            break;
+            isSpeaking = true;
+            readPage();
+        } else {
+            speakBtn.innerHTML = "Habilitar lectura";
+            isSpeaking = false;
+            window.speechSynthesis.cancel();
+        }
     }
 
-    if (isSpeaking) {
-        var elements = document.getElementsByTagName("*");
-        for (var i = 0; i < elements.length; i++) {
-            elements[i].addEventListener("focus", function(event) {
-                var text = event.target.textContent;
-                var msg = new SpeechSynthesisUtterance(text);
-                msg.rate = speedRange.value;
-                window.speechSynthesis.speak(msg);
-            });
-            elements[i].addEventListener("blur", function() {
-                window.speechSynthesis.cancel();
-            });
+    function readPage() {
+        if (isSpeaking) {
+            window.speechSynthesis.cancel();
+            var utterance = new SpeechSynthesisUtterance();
+            utterance.rate = 0.6;
+            utterance.onend = function() {
+                if (focusedElement) {
+                    focusedElement.style.outline = "";
+                    focusedElement = null;
+                }
+                if (isSpeaking) {
+                    readPage();
+                }
+            };
+            var elements = document.getElementsByTagName("*");
+            for (var i = 0; i < elements.length; i++) {
+                var element = elements[i];
+                if (element.tabIndex >= 0) {
+                    element.addEventListener("focus", function(event) {
+                        if (isSpeaking) {
+                            var elements = document.getElementsByTagName("*");
+                            for (var i = 0; i < elements.length; i++) {
+                                elements[i].addEventListener("focus", function(event) {
+                                    var text = event.target.textContent;
+                                    var msg = new SpeechSynthesisUtterance(text);
+                                    msg.rate = 0.6;
+                                    window.speechSynthesis.speak(msg);
+                                });
+                                elements[i].addEventListener("blur", function() {
+                                    window.speechSynthesis.cancel();
+                                });
+                            }
+                        }
+                    });
+                }
+            }
         }
-    } else {
-        window.speechSynthesis.cancel();
     }
+
+    /*** *Accesibility lector de páginas web ***/
+    // Selecciona todos los párrafos y enlaces
+    const paragraphs = document.querySelectorAll("p");
+    const links = document.querySelectorAll("a");
+
+    paragraphs.forEach(function(paragraph) {
+        paragraph.addEventListener("focus", function() {
+            var utterance = new SpeechSynthesisUtterance("párrafo");
+            utterance.rate = 0.5;
+            window.speechSynthesis.speak(utterance);
+        });
+    });
+
+    links.forEach(function(link) {
+        link.addEventListener("focus", function() {
+            var utterance = new SpeechSynthesisUtterance("Link");
+            utterance.rate = 0.5;
+            window.speechSynthesis.speak(utterance);
+        });
+    });
+
+    document.addEventListener("keydown", function(event) {
+        if (event.code === "Tab") {
+            // Crea un nuevo elemento audio
+            const audio = new Audio("path/to/click-sound.mp3");
+            audio.play();
+        }
+    });
 }
 
 
 
-speakBtn.addEventListener("click", enableSpeech);
-speakBtn.classList.add("accesibility-widget", "accesibility-boton");
-speedRange.addEventListener("input", function() {
-    if (isSpeaking) {
-        window.speechSynthesis.cancel();
-        enableSpeech();
-    }
-});
 
-
+accesibilityread();
 
 /*** *Accesibility lector de páginas web ***/
 
@@ -128,162 +171,360 @@ function navegacionTeclado() {
         }
     });
 
-    //Agregar boton para deshabilitar la navegación por teclado
-    var btn = document.createElement("BUTTON");
-    var t = document.createTextNode("Deshabilitar navegación");
-    btn.appendChild(t);
-    document.body.appendChild(btn);
-    btn.addEventListener("click", function() {
-        //Remover el evento keydown del documento
-        document.removeEventListener("keydown", navegacionTeclado);
-        //Remover el boton de deshabilitar navegación
-        btn.remove();
-    });
-    btn.classList.add("accesibility-widget", "accesibility-boton");
+
 }
 navegacionTeclado();
 /**Navegación por TAB*/
 
 /**Resaltar enlaces*/
-// Crear una function que resalte los enlaces
-function resaltarEnlaces() {
-    var enlaces = document.querySelectorAll("a");
-    enlaces.forEach(function(enlace) {
-        enlace.style.outline = "dotted blue";
-    });
-}
-
 // Crear un botón para habilitar el resaltado
-var btnHabilitar = document.createElement("BUTTON");
-var tHabilitar = document.createTextNode("Habilitar resaltado");
+
+var tHabilitar = document.createTextNode("Resaltar link");
 btnHabilitar.appendChild(tHabilitar);
 document.body.appendChild(btnHabilitar);
 btnHabilitar.addEventListener("click", resaltarEnlaces);
 btnHabilitar.classList.add("accesibility-widget", "accesibility-boton");
+// Función para habilitar y deshabilitar el resaltado
+var habilitado = false;
 
-// Crear un botón para deshabilitar el resaltado
-var btnDeshabilitar = document.createElement("BUTTON");
-var tDeshabilitar = document.createTextNode("Deshabilitar resaltado");
-btnDeshabilitar.appendChild(tDeshabilitar);
-document.body.appendChild(btnDeshabilitar);
-btnDeshabilitar.addEventListener("click", function() {
-    var enlaces = document.querySelectorAll("a");
-    enlaces.forEach(function(enlace) {
-        enlace.style.outline = "";
-    });
-});
-btnDeshabilitar.classList.add("accesibility-widget", "accesibility-boton");
+function resaltarEnlaces() {
+    // Si el resaltado está habilitado
+    if (habilitado) {
+        // Cambiar el estado a deshabilitado
+        habilitado = false;
+        btnHabilitar.innerHTML = "Resaltar link";
+        document.querySelectorAll("a").forEach(function(enlace) {
+            enlace.style.backgroundColor = "";
+            enlace.style.color = "";
+        });
+    } else {
+        // Cambiar el estado a habilitado
+        habilitado = true;
+        btnHabilitar.innerHTML = "Quitar resaltado";
+        document.querySelectorAll("a").forEach(function(enlace) {
+            enlace.style.backgroundColor = "#9ccc9c";
+            enlace.style.color = "#333";
+        });
+    }
+}
+
 /**Resaltar enlaces*/
 
 /**Tamaño de fuentes**/
-/* Accesibility JS font size regulador*/
-var fontSizeRangeInput = document.createElement("input");
-fontSizeRangeInput.setAttribute("type", "number");
-fontSizeRangeInput.setAttribute("id", "font-size-range");
-fontSizeRangeInput.setAttribute("value", "100");
-fontSizeRangeInput.setAttribute("min", "100");
-fontSizeRangeInput.setAttribute("max", "700");
-fontSizeRangeInput.setAttribute("step", "1");
-fontSizeRangeInput.classList.add("accesibility-widget", "accesibility-boton");
-document.body.appendChild(fontSizeRangeInput);
 
-function changeFontSize(size) {
-    var elements = document.getElementsByTagName("body");
+
+fontSizeButton.setAttribute("id", "font-size-button");
+fontSizeButton.innerHTML = "Basico";
+fontSizeButton.classList.add("accesibility-widget", "accesibility-boton");
+document.body.appendChild(fontSizeButton);
+
+function cnahgefontSize(level) {
+    var elements = document.getElementsByTagName("*");
     for (var i = 0; i < elements.length; i++) {
-        elements[i].style.fontSize = size + "%";
+        switch (level) {
+            case "Basico":
+                elements[i].style.fontSize = "1.1rem";
+                break;
+            case "Medio":
+                elements[i].style.fontSize = "1.2rem";
+                break;
+            case "grande":
+                elements[i].style.fontSize = "1.3rem";
+                break;
+            default:
+                elements[i].style.fontSize = "1rem";
+        }
     }
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    var range = document.getElementById("font-size-range");
-    range.addEventListener("change", function() {
-        var size = range.value;
-        changeFontSize(size);
+    var button = document.getElementById("font-size-button");
+    button.addEventListener("click", function() {
+        switch (button.innerHTML) {
+            case "Basico":
+                cnahgefontSize("Medio");
+                button.innerHTML = "Medio";
+                break;
+            case "Medio":
+                cnahgefontSize("grande");
+                button.innerHTML = "grande";
+                break;
+            case "grande":
+                cnahgefontSize("Basico");
+                button.innerHTML = "Basico";
+                break;
+        }
     });
 });
+
 /**Tamaño de fuentes**/
 
 /**Resaltar contraste*/
 /* Accesibility JS: regulador de contraste*/
-function changeColorScheme(scheme) {
+
+var tAlternar = document.createTextNode("Alternar colores");
+btnAlternar.appendChild(tAlternar);
+document.body.appendChild(btnAlternar);
+btnAlternar.addEventListener("click", alternarColores);
+btnAlternar.classList.add("accesibility-widget", "accesibility-boton", "accesibility-daltonismo");
+
+var colorActual = -1;
+var images = document.getElementsByTagName("img");
+
+function alternarColores() {
+    var headings = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+    var links = document.getElementsByTagName("a");
+
+    for (var i = 0; i < headings.length; i++) {
+        headings[i].style.color = document.body.style.color;
+    }
+
+    for (var i = 0; i < links.length; i++) {
+        links[i].style.color = document.body.style.color;
+    }
+
+    if (colorActual === -1) {
+        colorActual = 0;
+        document.body.style.backgroundColor = "#ff867c";
+        document.body.style.color = "#333";
+        document.querySelector(".accesibility-daltonismo").textContent = "Daltonismo 1";
+
+        for (var i = 0; i < images.length; i++) {
+            images[i].style.filter = "invert(100%)";
+        }
+    } else if (colorActual === 0) {
+        colorActual = 1;
+        document.body.style.backgroundColor = "#9ccc9c";
+        document.body.style.color = "#333";
+        document.querySelector(".accesibility-daltonismo").textContent = "Daltonismo 2";
+
+        for (var i = 0; i < images.length; i++) {
+            images[i].style.filter = "invert(100%) hue-rotate(120deg)";
+        }
+    } else if (colorActual === 1) {
+        colorActual = 2;
+        document.body.style.backgroundColor = "#ffdd57";
+        document.body.style.color = "#333";
+        document.querySelector(".accesibility-daltonismo").textContent = "Daltonismo 3";
+
+        for (var i = 0; i < images.length; i++) {
+            images[i].style.filter = "invert(100%) hue-rotate(60deg)";
+        }
+    } else if (colorActual === 2) {
+        colorActual = 3;
+        document.body.style.backgroundColor = "#333";
+        document.body.style.color = "#fff";
+        document.querySelector(".accesibility-daltonismo").textContent = "Alto contraste";
+
+        for (var i = 0; i < images.length; i++) {
+            images[i].style.filter = "grayscale(100%)";
+        }
+    } else if (colorActual === 3) {
+        colorActual = 4;
+        document.body.style.backgroundColor = "#efefef";
+        document.body.style.color = "#333";
+        document.querySelector(".accesibility-daltonismo").textContent = "Alto contraste blanco";
+
+        for (var i = 0; i < images.length; i++) {
+            images[i].style.filter = "none";
+        }
+    } else if (colorActual === 4) {
+        colorActual = -1;
+        document.body.style.backgroundColor = "";
+        document.body.style.color = "";
+        document.querySelector(".accesibility-daltonismo").textContent = "Alternar colores";
+
+
+        for (var i = 0; i < images.length; i++) {
+            images[i].style.filter = "";
+        }
+    }
+
+}
+/**Resaltar contraste*/
+/*line height*/
+
+lineHeightButton.setAttribute("id", "line-height-button");
+lineHeightButton.innerHTML = "interlineado Basico";
+lineHeightButton.classList.add("accesibility-widget", "accesibility-boton");
+document.body.appendChild(lineHeightButton);
+
+function changeLineHeight(level) {
     var elements = document.getElementsByTagName("*");
-    switch (scheme) {
-        case "high-contrast":
-            document.body.style.backgroundColor = "black";
-            for (var i = 0; i < elements.length; i++) {
-                elements[i].style.color = "white";
-            }
-            break;
-        case "daltonism-1":
-            document.body.style.backgroundColor = "white";
-            for (var i = 0; i < elements.length; i++) {
-                elements[i].style.color = "#004d99";
-            }
-            break;
-        case "daltonism-2":
-            document.body.style.backgroundColor = "white";
-            for (var i = 0; i < elements.length; i++) {
-                elements[i].style.color = "#009933";
-            }
-            break;
-        case "daltonism-3":
-            document.body.style.backgroundColor = "white";
-            for (var i = 0; i < elements.length; i++) {
-                elements[i].style.color = "#ff0000";
-            }
-            break;
-        case "daltonism-4":
-            document.body.style.backgroundColor = "white";
-            for (var i = 0; i < elements.length; i++) {
-                elements[i].style.color = "#ff9900";
-            }
-            break;
-        case "daltonism-5":
-            document.body.style.backgroundColor = "white";
-            for (var i = 0; i < elements.length; i++) {
-                elements[i].style.color = "#00cc99";
-            }
-            break;
-        default:
-            document.body.style.backgroundColor = "white";
-            for (var i = 0; i < elements.length; i++) {
-                elements[i].style.color = "black";
-            }
+    for (var i = 0; i < elements.length; i++) {
+        switch (level) {
+            case "interlineado Basico":
+                elements[i].style.lineHeight = "1.5";
+                break;
+            case "interlineado Medio":
+                elements[i].style.lineHeight = "2.0";
+                break;
+            case "interlineado Alto":
+                elements[i].style.lineHeight = "2.5";
+                break;
+            default:
+                elements[i].style.lineHeight = "interlineado normal";
+        }
     }
 }
 
-// Crear el primer botón
-var button1 = document.createElement("button");
-button1.innerHTML = "Alto contraste";
-button1.setAttribute("onclick", "changeColorScheme('high-contrast')");
-button1.classList.add("accesibility-widget", "accesibility-boton");
+document.addEventListener("DOMContentLoaded", function() {
+    var button = document.getElementById("line-height-button");
+    button.addEventListener("click", function() {
+        switch (button.innerHTML) {
+            case "interlineado Basico":
+                changeLineHeight("interlineado Medio");
+                button.innerHTML = "interlineado Medio";
+                break;
+            case "interlineado Medio":
+                changeLineHeight("interlineado Alto");
+                button.innerHTML = "interlineado Alto";
+                break;
+            case "interlineado Alto":
+                changeLineHeight("interlineado Basico");
+                button.innerHTML = "interlineado Basico";
+                break;
+        }
+    });
+});
+/*line height*/
+/*Alinear texto*/
 
-// Crear el segundo botón
-var button2 = document.createElement("button");
-button2.innerHTML = "Daltonismo 1";
-button2.setAttribute("onclick", "changeColorScheme('daltonism-1')");
-button2.classList.add("accesibility-widget", "accesibility-boton");
+textalignButton.setAttribute("id", "text-align-button");
+textalignButton.innerHTML = "Alinear a la izquierda";
+textalignButton.classList.add("accesibility-widget", "accesibility-boton");
+document.body.appendChild(textalignButton);
 
-// Crear el tercer botón
-var button3 = document.createElement("button");
-button3.innerHTML = "Daltonismo 2";
-button3.setAttribute("onclick", "changeColorScheme('daltonism-2')");
-button3.classList.add("accesibility-widget", "accesibility-boton");
+function changetextAlign(level) {
+    var elements = document.getElementsByTagName("*");
+    for (var i = 0; i < elements.length; i++) {
+        switch (level) {
+            case "Alinear a la izquierda":
+                elements[i].style.textAlign = "left";
+                break;
+            case "Alinear al centro":
+                elements[i].style.textAlign = "center";
+                break;
+            case "Alinear al right":
+                elements[i].style.textAlign = "right";
+                break;
+            default:
+                elements[i].style.textAlign = "inherit";
+        }
+    }
+}
 
-// Crear el cuarto botón
-var button4 = document.createElement("button");
-button4.innerHTML = "Daltonismo 3";
-button4.setAttribute("onclick", "changeColorScheme('daltonism-3')");
-button4.classList.add("accesibility-widget", "accesibility-boton");
+document.addEventListener("DOMContentLoaded", function() {
+    var button = document.getElementById("text-align-button");
+    button.addEventListener("click", function() {
+        switch (button.innerHTML) {
+            case "Alinear a la izquierda":
+                changetextAlign("Alinear al centro");
+                button.innerHTML = "Alinear al centro";
+                break;
+            case "Alinear al centro":
+                changetextAlign("Alinear al right");
+                button.innerHTML = "Alinear al right";
+                break;
+            case "Alinear al right":
+                changetextAlign("Alinear a la izquierda");
+                button.innerHTML = "Alinear a la izquierda";
+                break;
+        }
+    });
+});
+/*Alinear texto*/
 
-// Agregar los botones al documento
-document.body.appendChild(button1);
-document.body.appendChild(button2);
-document.body.appendChild(button3);
-document.body.appendChild(button4);
 
-changeColorScheme();
-/**Resaltar contraste*/
+/*dislexia*/
+function changeFontFamily(type) {
+    var elements = document.getElementsByTagName("body");
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].style.fontFamily = type;
+    }
+}
+
+
+fontFamilyButton.innerHTML = "Tipografía con Serif";
+fontFamilyButton.classList.add("accesibility-widget", "accesibility-boton");
+document.body.appendChild(fontFamilyButton);
+
+document.addEventListener("DOMContentLoaded", function() {
+    fontFamilyButton.addEventListener("click", function() {
+        if (fontFamilyButton.innerHTML === "Tipografía con Serif") {
+            changeFontFamily("serif");
+            fontFamilyButton.innerHTML = "Tipografía sin Serif";
+        } else {
+            changeFontFamily("sans-serif");
+            fontFamilyButton.innerHTML = "Tipografía con Serif";
+        }
+    });
+});
+/*dislexia*/
+
+/*alt text tooltip*/
+
+accesibilityBoton.setAttribute("id", "accesibility-boton");
+accesibilityBoton.innerHTML = "Activar lectura de texto en imágenes";
+accesibilityBoton.classList.add("accesibility-widget", "accesibility-boton");
+document.body.appendChild(accesibilityBoton);
+
+var images = document.getElementsByTagName("img");
+
+function showAltText() {
+    for (var i = 0; i < images.length; i++) {
+        var image = images[i];
+        var altText = image.getAttribute("alt");
+        if (altText) {
+            var wrapperDiv = document.createElement("div");
+            wrapperDiv.style.position = "relative";
+            image.parentNode.insertBefore(wrapperDiv, image);
+            wrapperDiv.appendChild(image);
+            var tooltip = document.createElement("div");
+            tooltip.innerHTML = altText;
+            tooltip.style.backgroundColor = "white";
+            tooltip.style.padding = "10px";
+            tooltip.style.position = "absolute";
+            tooltip.style.bottom = "0";
+            tooltip.style.left = "50%";
+            tooltip.style.transform = "translateX(-50%)";
+            wrapperDiv.appendChild(tooltip);
+        }
+    }
+
+}
+
+document.getElementById("accesibility-boton").addEventListener("click", function() {
+    if (accesibilityBoton.innerHTML === "Activar lectura de texto en imágenes") {
+        accesibilityBoton.innerHTML = "Desactivar lectura de texto en imágenes";
+        showAltText();
+    } else {
+        accesibilityBoton.innerHTML = "Activar lectura de texto en imágenes";
+        var wrapperDivs = document.querySelectorAll("div[style='position: relative;']");
+        for (var i = 0; i < wrapperDivs.length; i++) {
+            var wrapperDiv = wrapperDivs[i];
+            var image = wrapperDiv.firstChild;
+            wrapperDiv.parentNode.insertBefore(image, wrapperDiv);
+            wrapperDiv.parentNode.removeChild(wrapperDiv);
+        }
+    }
+});
+
+/*alt text tooltip*/
+
+/*comando abrir menu sin click*/
+document.addEventListener("keydown", function(event) {
+    if (event.ctrlKey && event.key === "y") {
+        var accesibilityWidgetBox = document.getElementById("accesibility-widget-box");
+        if (accesibilityWidgetBox.style.display === "none") {
+            accesibilityWidgetBox.style.display = "grid";
+        } else {
+            accesibilityWidgetBox.style.display = "none";
+        }
+    }
+});
+/*comando abrir menu sin click*/
+
 
 /*estilos*/
 
@@ -304,46 +545,64 @@ for (var i = 0; i < buttonsbox.length; i++) {
 document.body.appendChild(accesibilityWidgetBox);
 
 if (accesibilityWidgetBox) {
-    accesibilityWidgetBox.style.backgroundColor = "#000";
+    accesibilityWidgetBox.style.backgroundColor = "#EFF1F5";
     accesibilityWidgetBox.style.position = "fixed";
-    accesibilityWidgetBox.style.left = "0px";
-    accesibilityWidgetBox.style.width = "25%";
-    accesibilityWidgetBox.style.borderRadius = "0 10px 10px 0px";
+    accesibilityWidgetBox.style.right = "0px";
+    accesibilityWidgetBox.style.width = "50%";
+    accesibilityWidgetBox.style.borderRadius = "0px";
     accesibilityWidgetBox.style.top = "0%";
     accesibilityWidgetBox.style.display = "none";
-    accesibilityWidgetBox.style.flexDirection = "row";
-    accesibilityWidgetBox.style.flexWrap = "wrap";
-    accesibilityWidgetBox.style.justifyContent = "center";
-    accesibilityWidgetBox.style.alignItems = "center";
     accesibilityWidgetBox.style.zIndex = "99999999";
+    accesibilityWidgetBox.style.gridTemplateColumns = 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)';
+    accesibilityWidgetBox.style.gap = '15px';
+    accesibilityWidgetBox.style.padding = '1.25rem';
+
 }
 
 
 var elements = document.getElementsByClassName("accesibility-widget accesibility-boton");
 for (var i = 0; i < elements.length; i++) {
-    elements[i].style.width = "50%";
-    elements[i].style.height = "100px";
-    elements[i].style.border = "none";
-    elements[i].style.backgroundColor = "blue";
-    elements[i].style.color = "#fff";
-    elements[i].style.textAlign = "center";
-    elements[i].style.padding = "0px";
+    elements[i].style.position = 'relative';
+    elements[i].style.width = '100%';
+    elements[i].style.height = '114px';
+    elements[i].style.display = 'flex';
+    elements[i].style.flexFlow = 'column-reverse';
+    elements[i].style.alignItems = 'center';
+    elements[i].style.justifyContent = 'center';
+    elements[i].style.WebkitAppearance = 'none';
+    elements[i].style.cursor = 'pointer';
+    elements[i].style.background = '#fff';
+    elements[i].style.borderRadius = '12px';
+    elements[i].style.border = '2px solid #fff';
+    elements[i].style.borderTopColor = '#fff';
+    elements[i].style.borderRightColor = '#fff';
+    elements[i].style.borderBottomColor = '#fff';
+    elements[i].style.borderLeftColor = '#fff';
+    elements[i].style.padding = '.3125rem .625rem';
+    elements[i].style.transition = 'border-color 0.15s ease';
+    elements[i].style.backgroundSize = "90px";
+    elements[i].style.backgroundRepeat = "no-repeat";
+    elements[i].style.backgroundPosition = "center";
+
+
 }
+
+
 
 /*botón mostrar y esconder*/
 var accesibilityWidgetBox = document.getElementsByClassName("accesibility-widget-box-class")[0];
 
 var showBtn = document.createElement("button");
 showBtn.classList.add("accesibility-show");
-showBtn.innerHTML = "Mostrar";
+showBtn.innerHTML = "";
 
 showBtn.addEventListener("click", function() {
-    if (accesibilityWidgetBox.style.display === "flex") {
+    if (accesibilityWidgetBox.style.display === "grid") {
         accesibilityWidgetBox.style.display = "none";
-        showBtn.innerHTML = "Mostrar";
+        showBtn.innerHTML = "";
     } else {
-        accesibilityWidgetBox.style.display = "flex";
-        showBtn.innerHTML = "Ocultar";
+        accesibilityWidgetBox.style.display = "grid";
+        showBtn.innerHTML = "";
     }
 });
 
@@ -358,7 +617,72 @@ showBtn.style.margin = "0 !important";
 showBtn.style.background = "0 0 !important";
 showBtn.style.border = "none";
 showBtn.style.visibility = "visible !important";
-
+showBtn.style.backgroundImage = "url('https://cdn.jsdelivr.net/gh/vtorresmz/accesibilitypro@main/pro/accesibility-icon.svg')";
+showBtn.style.backgroundSize = "100%";
+showBtn.style.backgroundRepeat = "no-repeat";
+showBtn.style.backgroundPosition = "center";
+showBtn.style.zIndex = "99999999999";
 document.body.appendChild(showBtn);
 /*mostrar esconder*/
 /*estilos*/
+
+/*titulos*/
+const acessibilityheading2 = document.createElement('h3');
+acessibilityheading2.style.display = 'flex';
+acessibilityheading2.style.flexFlow = 'column';
+acessibilityheading2.style.alignItems = 'center';
+acessibilityheading2.style.justifyContent = 'center';
+acessibilityheading2.innerHTML = "AccessibilityJS";
+accesibilityWidgetBox.appendChild(acessibilityheading2);
+/*titulos*/
+
+/*imagen botones*/
+const speakimage = document.createElement('img');
+speakimage.src = 'img/speak.svg';
+speakimage.width = '90';
+speakimage.height = '90';
+speakBtn.appendChild(speakimage);
+
+const sizeimage = document.createElement('img');
+sizeimage.src = 'img/textozoom.svg';
+sizeimage.width = '90';
+sizeimage.height = '90';
+fontSizeButton.appendChild(sizeimage);
+
+const linkupimage = document.createElement('img');
+linkupimage.src = 'img/resaltar.svg';
+linkupimage.width = '90';
+linkupimage.height = '90';
+btnHabilitar.appendChild(linkupimage);
+
+const contrasteimage = document.createElement('img');
+contrasteimage.src = 'img/contraste.svg';
+contrasteimage.width = '90';
+contrasteimage.height = '90';
+btnAlternar.appendChild(contrasteimage);
+
+const interlineado = document.createElement('img');
+interlineado.src = 'img/speak.svg';
+interlineado.width = '90';
+interlineado.height = '90';
+lineHeightButton.appendChild(interlineado);
+
+const alineado = document.createElement('img');
+alineado.src = 'img/alineacion.svg';
+alineado.width = '90';
+alineado.height = '90';
+textalignButton.appendChild(alineado);
+
+const dislexia = document.createElement('img');
+dislexia.src = 'img/dislexia.svg';
+dislexia.width = '90';
+dislexia.height = '90';
+fontFamilyButton.appendChild(dislexia);
+
+
+const alttext = document.createElement('img');
+alttext.src = 'img/alttext.svg';
+alttext.width = '90';
+alttext.height = '90';
+accesibilityBoton.appendChild(alttext);
+/*imagen botones*/
