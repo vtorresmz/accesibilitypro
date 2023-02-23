@@ -12,9 +12,9 @@ https://github.com/vtorresmz/accesibility
 
 Muchas gracias
 */
+
 document.addEventListener("DOMContentLoaded", function() {
     // Aquí va todo el código
-
 
 
     /*ingresar por enter a los contenidos*/
@@ -57,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         speakBtn.classList.add("accesibility-widget", "accesibility-boton");
         speakBtn.innerHTML = '<span>Habilitar lectura</span>' + imgspeaker;
+        document.body.appendChild(speakBtn);
         speakBtn.addEventListener("click", toggleSpeech);
 
         var isSpeaking = false;
