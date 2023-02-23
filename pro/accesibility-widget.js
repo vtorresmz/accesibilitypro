@@ -41,8 +41,7 @@ const imgrinter = "<img style='width:50%; height:auto; margin:auto; display:bloc
 const imgraline = "<img style='width:50%; height:auto; margin:auto; display:block;' class='accessibility-imagewidget' src='https://cdn.jsdelivr.net/gh/vtorresmz/accesibilitypro@c4f8b4bbff12cf7ceff50a6321059b6239032b5e/img/alineacion.svg'>";
 const imgrdislexia = "<img style='width:50%; height:auto; margin:auto; display:block;' class='accessibility-imagewidget' src='https://cdn.jsdelivr.net/gh/vtorresmz/accesibilitypro@c4f8b4bbff12cf7ceff50a6321059b6239032b5e/img/dislexia.svg'>";
 const imgrtooltips = "<img style='width:50%; height:auto; margin:auto; display:block;' class='accessibility-imagewidget' src='https://cdn.jsdelivr.net/gh/vtorresmz/accesibilitypro@c4f8b4bbff12cf7ceff50a6321059b6239032b5e/img/alttext.svg'>";
-
-
+const logoaccessibility = "<img style='width:30%; height:auto; margin:auto; display:block;' class='accessibility-imagewidget' src='https://cdn.jsdelivr.net/gh/vtorresmz/accesibilitypro@7112fb33fd80ee75a4c56b3bbb95c7b098ac73ff/img/accessibility-logo.svg'>";
 
 /*** *Accesibility lector de páginas web ***/
 /*** *Accesibility lector de páginas web ***/
@@ -365,7 +364,7 @@ function cambiarTamanoFuente() {
 
 // Agregar un botón al cuerpo del documento que permite habilitar y deshabilitar el cambio de tamaño de fuente
 var fontSizeButton = document.createElement('button');
-fontSizeButton.innerHTML = '<span>Tamaño de textos grande</span>' + imgrfontsize;
+fontSizeButton.innerHTML = '<span>Agrandar texto</span>' + imgrfontsize;
 document.body.appendChild(fontSizeButton);
 fontSizeButton.addEventListener('click', cambiarTamanoFuente);
 fontSizeButton.classList.add('accesibility-widget', 'accesibility-boton');
@@ -468,15 +467,15 @@ function changeFontFamily(type) {
 }
 
 
-
-fontFamilyButton.innerHTML = '<img src="' + imgrtooltips + '"> <span>Tipografía con Serif</span>';
+var fontFamilyButton = document.createElement("button");
+fontFamilyButton.innerHTML = '<span>Tipografía con Serif</span>' + imgrdislexia;
 fontFamilyButton.classList.add("accesibility-widget", "accesibility-boton");
 document.body.appendChild(fontFamilyButton);
 
 document.addEventListener("DOMContentLoaded", function() {
     fontFamilyButton.addEventListener("click", function() {
         if (fontFamilyButton.querySelector("span").innerHTML === "Tipografía con Serif") {
-            changeFontFamily("OpenDyslexic, sans-serif");
+            changeFontFamily("serif");
             fontFamilyButton.querySelector("span").innerHTML = "Tipografía sin Serif";
         } else {
             changeFontFamily("sans-serif");
@@ -484,7 +483,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
-
 /*dislexia*/
 
 /*alt text tooltip*/
@@ -581,6 +579,7 @@ if (accesibilityWidgetBox) {
     accesibilityWidgetBox.style.gridTemplateColumns = 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)';
     accesibilityWidgetBox.style.gap = '15px';
     accesibilityWidgetBox.style.padding = '1.25rem';
+    accesibilityWidgetBox.style.borderRadius = "10px";
 
 }
 
@@ -662,6 +661,7 @@ document.body.appendChild(showBtn);
 /*estilos*/
 
 /*titulos*/
+
 const acessibilityheading2 = document.createElement('h3');
 acessibilityheading2.style.display = 'flex';
 acessibilityheading2.style.flexFlow = 'column';
@@ -669,5 +669,7 @@ acessibilityheading2.style.alignItems = 'center';
 acessibilityheading2.style.justifyContent = 'center';
 acessibilityheading2.style.gridArea = '1 / 1 / 1 / 4';
 acessibilityheading2.innerHTML = "AccessibilityJS";
+acessibilityheading2.innerHTML = logoaccessibility;
 accesibilityWidgetBox.appendChild(acessibilityheading2);
+
 /*titulos*/
