@@ -54,7 +54,6 @@ function accesibilityread() {
 
     speakBtn.classList.add("accesibility-widget", "accesibility-boton");
     speakBtn.innerHTML = '<span>Habilitar lectura</span>' + imgspeaker;
-    document.body.appendChild(speakBtn);
     speakBtn.addEventListener("click", toggleSpeech);
 
     var isSpeaking = false;
@@ -338,6 +337,9 @@ function interlineado() {
 /**Interlineado*/
 
 /**Tamaño de fuentes**/
+
+
+
 function cambiarTamanioTexto(elementos, tamaño) {
     elementos.forEach(function(elemento) {
         var etiquetas = document.getElementsByTagName(elemento);
@@ -459,6 +461,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 /*dislexia*/
+function importOpenDyslexicFont() {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'ODR.otf';
+    document.head.appendChild(link);
+}
+
+
 function changeFontFamily(type) {
     var elements = document.getElementsByTagName("body");
     for (var i = 0; i < elements.length; i++) {
@@ -466,16 +476,16 @@ function changeFontFamily(type) {
     }
 }
 
-
-var fontFamilyButton = document.createElement("button");
 fontFamilyButton.innerHTML = '<span>Tipografía con Serif</span>' + imgrdislexia;
 fontFamilyButton.classList.add("accesibility-widget", "accesibility-boton");
 document.body.appendChild(fontFamilyButton);
 
 document.addEventListener("DOMContentLoaded", function() {
+    importOpenDyslexicFont();
+
     fontFamilyButton.addEventListener("click", function() {
         if (fontFamilyButton.querySelector("span").innerHTML === "Tipografía con Serif") {
-            changeFontFamily("serif");
+            changeFontFamily("OpenDyslexic, sans-serif");
             fontFamilyButton.querySelector("span").innerHTML = "Tipografía sin Serif";
         } else {
             changeFontFamily("sans-serif");
@@ -483,6 +493,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
 /*dislexia*/
 
 /*alt text tooltip*/
