@@ -53,8 +53,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function accesibilityread() {
 
-
-
         speakBtn.classList.add("accesibility-widget", "accesibility-boton");
         speakBtn.innerHTML = '<span>Habilitar lectura</span>' + imgspeaker;
         document.body.appendChild(speakBtn);
