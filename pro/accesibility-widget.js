@@ -468,15 +468,15 @@ function changeFontFamily(type) {
 }
 
 
-var fontFamilyButton = document.createElement("button");
-fontFamilyButton.innerHTML = '<span>Tipografía con Serif</span>' + imgrdislexia;
+
+fontFamilyButton.innerHTML = '<img src="' + imgrtooltips + '"> <span>Tipografía con Serif</span>';
 fontFamilyButton.classList.add("accesibility-widget", "accesibility-boton");
 document.body.appendChild(fontFamilyButton);
 
 document.addEventListener("DOMContentLoaded", function() {
     fontFamilyButton.addEventListener("click", function() {
         if (fontFamilyButton.querySelector("span").innerHTML === "Tipografía con Serif") {
-            changeFontFamily("serif");
+            changeFontFamily("OpenDyslexic, sans-serif");
             fontFamilyButton.querySelector("span").innerHTML = "Tipografía sin Serif";
         } else {
             changeFontFamily("sans-serif");
@@ -484,6 +484,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
 /*dislexia*/
 
 /*alt text tooltip*/

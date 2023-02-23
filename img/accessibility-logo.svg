@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="498" height="113" viewBox="0 0 498 113">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.309" y1="1" x2="0.69" y2="0.244" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#4937c1"/>
+      <stop offset="1" stop-color="#890089"/>
+    </linearGradient>
+    <clipPath id="clip-logo">
+      <rect width="498" height="113"/>
+    </clipPath>
+  </defs>
+  <g id="logo" clip-path="url(#clip-logo)">
+    <g id="Group_16" data-name="Group 16" transform="translate(-55.131 -83.404)">
+      <g id="Group_15" data-name="Group 15" transform="translate(-75.738 -54.191)">
+        <path id="Path_50" data-name="Path 50" d="M34.142,0H72.837L38.695,94.84H0Z" transform="translate(137 146)" fill="url(#linear-gradient)"/>
+        <path id="Path_51" data-name="Path 51" d="M38.695,0H0L34.142,94.84H72.837Z" transform="translate(171.901 146)" fill="#4937c1"/>
+      </g>
+      <text id="ccessibility" transform="translate(169 186)" fill="#4937c1" font-size="70" font-family="Blinker-Bold, Blinker" font-weight="700"><tspan x="0" y="0">CCESSIBILITY</tspan></text>
+    </g>
+  </g>
+</svg>
