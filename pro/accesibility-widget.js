@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
 
-        /*** *Accesibility lector de páginas web ***/
+        /*** *Accesibility lector de páginas web **
         // Selecciona todos los párrafos y enlaces
         const paragraphs = document.querySelectorAll("p");
         const links = document.querySelectorAll("a");
@@ -132,11 +132,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 window.speechSynthesis.speak(utterance);
             });
         });
-
+*/
         document.addEventListener("keydown", function(event) {
             if (event.code === "Tab") {
                 // Crea un nuevo elemento audio
-                const audio = new Audio("path/to/click-sound.mp3");
+                const audio = new Audio("click.mp3");
                 audio.play();
             }
         });
