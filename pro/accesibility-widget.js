@@ -359,10 +359,12 @@ document.addEventListener("DOMContentLoaded", function() {
         if (habilitado) {
             habilitado = false;
             cambiarTamanioTexto(['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'a', 'span'], '');
+            fontSizeButton.innerHTML = '<span>Agrandar texto</span>' + imgrfontsize;
         } else {
             // Si el cambio de tamaño de fuente no está habilitado, habilitarlo con un tamaño de fuente del 150%
             habilitado = true;
             cambiarTamanioTexto(['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'a', 'span'], '150%');
+            fontSizeButton.innerHTML = '<span>Texto normal texto</span>' + imgrfontsize;
         }
     }
 
@@ -413,93 +415,90 @@ document.addEventListener("DOMContentLoaded", function() {
     /**Interlineado de texto**/
 
 
-    /*Alinear texto*/
+    /* Alinear texto */
 
+    function toggleTextAlign() {
+        var button = document.getElementById("text-align-button");
+        var alineacion = button.dataset.textAlign;
+
+        switch (alineacion) {
+            case "left":
+                alineacion = "center";
+                button.innerHTML = '<span>Alinear texto al centro</span>' + imgrfontsize;
+                break;
+            case "center":
+                alineacion = "right";
+                button.innerHTML = '<span>Alinear texto a la derecha</span>' + imgrfontsize;
+                break;
+            case "right":
+            default:
+                alineacion = "left";
+                button.innerHTML = '<span>Alinear texto a la izquierda</span>' + imgrfontsize;
+                break;
+        }
+
+        button.dataset.textAlign = alineacion;
+        alinearTexto(alineacion);
+    }
+
+    function alinearTexto(alineacion) {
+        var elementos = document.getElementsByTagName("*");
+        for (var i = 0; i < elementos.length; i++) {
+            elementos[i].style.textAlign = alineacion;
+        }
+    }
+
+    var textalignButton = document.createElement("button");
     textalignButton.setAttribute("id", "text-align-button");
-    textalignButton.innerHTML = '<span>Alinear textos</span>' + imgraline;
-
+    textalignButton.innerHTML = '<span>Alinear texto a la izquierda</span>' + imgrfontsize;
     textalignButton.classList.add("accesibility-widget", "accesibility-boton");
+    textalignButton.dataset.textAlign = "left";
+    textalignButton.addEventListener("click", toggleTextAlign);
+
     document.body.appendChild(textalignButton);
 
-    function changetextAlign(level) {
-        var elements = document.getElementsByTagName("*");
-        for (var i = 0; i < elements.length; i++) {
-            switch (level) {
-                case "Alinear a la izquierda":
-                    elements[i].style.textAlign = "left";
-                    break;
-                case "Alinear al centro":
-                    elements[i].style.textAlign = "center";
-                    break;
-                case "Alinear al right":
-                    elements[i].style.textAlign = "right";
-                    break;
-                default:
-                    elements[i].style.textAlign = "inherit";
-            }
-        }
-    }
+    /* Alinear texto */
 
-    document.addEventListener("DOMContentLoaded", function() {
-        var button = document.getElementById("text-align-button");
-        button.addEventListener("click", function() {
-            switch (button.innerHTML) {
-                case "Alinear a la izquierda":
-                    changetextAlign("Alinear al centro");
-                    button.innerHTML = "Alinear al centro";
-                    break;
-                case "Alinear al centro":
-                    changetextAlign("Alinear al right");
-                    button.innerHTML = "Alinear al right";
-                    break;
-                case "Alinear al right":
-                    changetextAlign("Alinear a la izquierda");
-                    button.innerHTML = "Alinear a la izquierda";
-                    break;
-            }
-        });
-    });
-    /*Alinear texto*/
+
+
 
 
     /*dislexia*/
-    function importOpenDyslexicFont() {
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = 'ODR.otf';
-        document.head.appendChild(link);
-    }
+    function toggleFont() {
+        var head = document.head;
+        var body = document.body;
 
+        var link = head.querySelector('link[href="https://fonts.cdnfonts.com/css/open-dyslexic?styles=49734"]');
 
-    function changeFontFamily(type) {
-        var elements = document.getElementsByTagName("body");
-        for (var i = 0; i < elements.length; i++) {
-            elements[i].style.fontFamily = type;
+        if (link) {
+            head.removeChild(link);
+            body.style.fontFamily = null;
+        } else {
+            link = document.createElement('link');
+            link.href = 'https://fonts.cdnfonts.com/css/open-dyslexic?styles=49734';
+            link.rel = 'stylesheet';
+            head.appendChild(link);
+            body.style.fontFamily = "'Open-Dyslexic', sans-serif";
         }
     }
 
-    fontFamilyButton.innerHTML = '<span>Tipografía con Serif</span>' + imgrdislexia;
-    fontFamilyButton.classList.add("accesibility-widget", "accesibility-boton");
-    document.body.appendChild(fontFamilyButton);
+    var button = document.createElement('button');
 
-    document.addEventListener("DOMContentLoaded", function() {
-        importOpenDyslexicFont();
+    button.innerHTML = 'Texto amigable';
+    button.classList.add('accesibility-widget', 'accesibility-boton');
+    button.innerHTML = '<span>Texto amigable</span>' + imgrdislexia;
+    button.addEventListener('click', toggleFont);
 
-        fontFamilyButton.addEventListener("click", function() {
-            if (fontFamilyButton.querySelector("span").innerHTML === "Tipografía con Serif") {
-                changeFontFamily("OpenDyslexic, sans-serif");
-                fontFamilyButton.querySelector("span").innerHTML = "Tipografía sin Serif";
-            } else {
-                changeFontFamily("sans-serif");
-                fontFamilyButton.querySelector("span").innerHTML = "Tipografía con Serif";
-            }
-        });
-    });
+    document.body.appendChild(button);
 
     /*dislexia*/
+
+
 
     /*alt text tooltip*/
+    var tooltipsEnabled = false;
 
+    var accesibilityBoton = document.createElement("button");
     accesibilityBoton.setAttribute("id", "accesibility-boton");
     accesibilityBoton.innerHTML = '<span>Tooltips</span>' + imgrtooltips;
     accesibilityBoton.classList.add("accesibility-widget", "accesibility-boton");
@@ -514,7 +513,8 @@ document.addEventListener("DOMContentLoaded", function() {
             if (altText) {
                 var wrapperDiv = document.createElement("div");
                 wrapperDiv.style.position = "relative";
-                image.parentNode.insertBefore(wrapperDiv, image);
+                var parentDiv = image.parentNode;
+                parentDiv.insertBefore(wrapperDiv, image);
                 wrapperDiv.appendChild(image);
                 var tooltip = document.createElement("div");
                 tooltip.innerHTML = altText;
@@ -527,24 +527,33 @@ document.addEventListener("DOMContentLoaded", function() {
                 wrapperDiv.appendChild(tooltip);
             }
         }
+    }
 
+    function removeAltText() {
+        var wrapperDivs = document.querySelectorAll("div[style='position: relative;']");
+        for (var i = 0; i < wrapperDivs.length; i++) {
+            var wrapperDiv = wrapperDivs[i];
+            var image = wrapperDiv.firstChild;
+            var parentDiv = wrapperDiv.parentNode;
+            parentDiv.insertBefore(image, wrapperDiv);
+            parentDiv.removeChild(wrapperDiv);
+        }
     }
 
     document.getElementById("accesibility-boton").addEventListener("click", function() {
-        if (accesibilityBoton.innerHTML === "Activar lectura de texto en imágenes") {
-            accesibilityBoton.innerHTML = "Desactivar lectura de texto en imágenes";
-            showAltText();
+        if (tooltipsEnabled) {
+            accesibilityBoton.innerHTML = '<span>Tooltips</span>' + imgrtooltips;
+            removeAltText();
         } else {
-            accesibilityBoton.innerHTML = "Activar lectura de texto en imágenes";
-            var wrapperDivs = document.querySelectorAll("div[style='position: relative;']");
-            for (var i = 0; i < wrapperDivs.length; i++) {
-                var wrapperDiv = wrapperDivs[i];
-                var image = wrapperDiv.firstChild;
-                wrapperDiv.parentNode.insertBefore(image, wrapperDiv);
-                wrapperDiv.parentNode.removeChild(wrapperDiv);
-            }
+            accesibilityBoton.innerHTML = '<span>Desactivar Tooltips</span>' + imgrtooltips;
+            showAltText();
         }
+        tooltipsEnabled = !tooltipsEnabled;
     });
+
+
+    /*alt text tooltip*/
+
 
     /*alt text tooltip*/
 
@@ -686,4 +695,8 @@ document.addEventListener("DOMContentLoaded", function() {
     accesibilityWidgetBox.appendChild(acessibilityheading2);
 
     /*titulos*/
+
+
+
+
 });
