@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.addEventListener("keydown", function(event) {
             if (event.code === "Tab") {
                 // Crea un nuevo elemento audio
-                const audio = new Audio("click.mp3");
+                const audio = new Audio("https://cdn.jsdelivr.net/gh/vtorresmz/accesibilitypro@9a6dedca30ce1c9139bbf938ecb3c28e2a5c44db/pro/sound/click.mp3");
                 audio.play();
             }
         });
