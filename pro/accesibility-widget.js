@@ -571,6 +571,12 @@ document.addEventListener("DOMContentLoaded", function() {
     /*comando abrir menu sin click*/
 
 
+    // reemplaza "ruta-de-la-imagen" con la ruta real de la imagen
+    var button = document.createElement('button');
+    button.classList.add('accesibility-widget', 'accesibility-boton');
+    button.innerHTML = '<span>www.Accessibility.cl</span>' + logoaccessibility;
+    document.body.appendChild(button);
+
     /*estilos*/
 
     //Obtener todos los elementos button con la clase "accesibility-widget"
@@ -695,6 +701,8 @@ document.addEventListener("DOMContentLoaded", function() {
     accesibilityWidgetBox.appendChild(acessibilityheading2);
 
     /*titulos*/
+
+
 
 
 
