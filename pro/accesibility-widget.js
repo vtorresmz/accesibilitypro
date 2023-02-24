@@ -586,8 +586,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var accesibilityWidgetBox = document.createElement("div");
     accesibilityWidgetBox.id = "accesibility-widget-box";
     accesibilityWidgetBox.classList.add("accesibility-widget-box-class");
-    accesibilityWidgetBox.classList.add("d-none");
-    accesibilityWidgetBox.classList.add("d-md-grid");
+
 
     //Agregar todos los elementos button dentro del elemento div creado
     for (var i = 0; i < buttonsbox.length; i++) {
