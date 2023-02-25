@@ -424,16 +424,16 @@ document.addEventListener("DOMContentLoaded", function() {
         switch (alineacion) {
             case "left":
                 alineacion = "center";
-                button.innerHTML = '<span>Alinear texto al centro</span>' + imgrfontsize;
+                button.innerHTML = '<span>Alinear texto al centro</span>' + imgraline;
                 break;
             case "center":
                 alineacion = "right";
-                button.innerHTML = '<span>Alinear texto a la derecha</span>' + imgrfontsize;
+                button.innerHTML = '<span>Alinear texto a la derecha</span>' + imgraline;
                 break;
             case "right":
             default:
                 alineacion = "left";
-                button.innerHTML = '<span>Alinear texto a la izquierda</span>' + imgrfontsize;
+                button.innerHTML = '<span>Alinear texto a la izquierda</span>' + imgraline;
                 break;
         }
 
