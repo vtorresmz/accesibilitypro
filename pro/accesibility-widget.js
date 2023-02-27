@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const imgraline = "<img style='width:50%; height:auto; margin:auto; display:block;' class='accessibility-imagewidget' src='https://cdn.jsdelivr.net/gh/vtorresmz/accesibilitypro@c4f8b4bbff12cf7ceff50a6321059b6239032b5e/img/alineacion.svg'>";
     const imgrdislexia = "<img style='width:50%; height:auto; margin:auto; display:block;' class='accessibility-imagewidget' src='https://cdn.jsdelivr.net/gh/vtorresmz/accesibilitypro@c4f8b4bbff12cf7ceff50a6321059b6239032b5e/img/dislexia.svg'>";
     const imgrtooltips = "<img style='width:50%; height:auto; margin:auto; display:block;' class='accessibility-imagewidget' src='https://cdn.jsdelivr.net/gh/vtorresmz/accesibilitypro@c4f8b4bbff12cf7ceff50a6321059b6239032b5e/img/alttext.svg'>";
-    const logoaccessibility = "<img style='width:30%; height:auto; margin:auto; display:block;' class='accessibility-imagewidget' src='https://cdn.jsdelivr.net/gh/vtorresmz/accesibilitypro@7112fb33fd80ee75a4c56b3bbb95c7b098ac73ff/img/accessibility-logo.svg'>";
+    const logoaccessibility = "<img style='width:30%; height:auto; margin:auto; display:block;' class='accessibility-imagewidget' src='https://cdn.jsdelivr.net/gh/vtorresmz/accesibilitypro@7112fb33fd80ee75a4c56b3bbb95c7b098ac73ff/img/logo.png'>";
 
     /*** *Accesibility lector de páginas web ***/
     /*** *Accesibility lector de páginas web ***/
