@@ -570,14 +570,32 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     /*comando abrir menu sin click*/
 
+    /*foooter*/
+    var accessibilityFooter = document.createElement('span');
+    accessibilityFooter.classList.add('accesibility-widget', 'accesibility-boton', 'accessibility-footer');
+    accessibilityFooter.innerHTML = '<a href="https://accessibility.cl/">' + logoaccessibility + '</a>';
+    document.body.appendChild(accessibilityFooter);
+    var accessibilityFooter = document.getElementsByClassName("accessibility-footer");
 
-    // reemplaza "ruta-de-la-imagen" con la ruta real de la imagen
-    var button = document.createElement('button');
-    button.classList.add('accesibility-widget', 'accesibility-boton');
-    button.innerHTML = '<span>www.Accessibility.cl</span>' + logoaccessibility;
-    document.body.appendChild(button);
+    for (var i = 0; i < accessibilityFooter.length; i++) {
+        accessibilityFooter[i].style.gridArea = '1/1/1/5';
 
-    /*estilos*/
+
+        if (window.innerWidth >= 300 && window.innerWidth <= 990) {
+            accessibilityFooter[i].style.gridArea = '1/1/1/4';
+        }
+    }
+
+
+
+    /*responsivo*/
+
+
+    /*responsivo*/
+
+
+    /*foooter*/
+
 
     //Obtener todos los elementos button con la clase "accesibility-widget"
     var buttonsbox = document.querySelectorAll(".accesibility-widget");
@@ -612,7 +630,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     }
 
-
+    /*estilo*/
     var elements = document.getElementsByClassName("accesibility-widget accesibility-boton");
     for (var i = 0; i < elements.length; i++) {
         elements[i].style.position = 'relative';
@@ -641,17 +659,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
     }
 
-    /*estilo*/
     function crearClaseCSS() {
         var style = document.createElement('style');
-        style.type = 'text/css';
         style.innerHTML = '.accesibility-widget.accesibility-boton span {font-size:1rem!important;}';
         document.getElementsByTagName('head')[0].appendChild(style);
     }
 
     crearClaseCSS();
 
-    /*Estilo*/
+
     /*botón mostrar y esconder*/
     var accesibilityWidgetBox = document.getElementsByClassName("accesibility-widget-box-class")[0];
 
@@ -695,24 +711,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (window.innerWidth >= 300 && window.innerWidth <= 990) {
         accessibilitywidgetresponsive.style.width = '100%';
-        accessibilitywidgetresponsive.style.height = '100vh';
+        accessibilitywidgetresponsive.style.height = 'auto';
+        accessibilitywidgetresponsive.style.gap = '14px';
+        accessibilitywidgetresponsive.style.gridTemplateColumns = 'repeat(auto-fill, 30%)';
+
+
+
 
     }
     /*responsivo*/
-
-    /*titulos*/
-
-    const acessibilityheading2 = document.createElement('h3');
-    acessibilityheading2.style.display = 'flex';
-    acessibilityheading2.style.flexFlow = 'column';
-    acessibilityheading2.style.alignItems = 'center';
-    acessibilityheading2.style.justifyContent = 'center';
-    acessibilityheading2.style.gridArea = '1 / 1 / 1 / 4';
-    acessibilityheading2.innerHTML = "AccessibilityJS";
-    acessibilityheading2.innerHTML = logoaccessibility;
-    accesibilityWidgetBox.appendChild(acessibilityheading2);
-
-    /*titulos*/
 
 
 
