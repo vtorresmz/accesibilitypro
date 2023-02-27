@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const imgraline = "<img style='width:50%; height:auto; margin:auto; display:block;' class='accessibility-imagewidget' src='https://cdn.jsdelivr.net/gh/vtorresmz/accesibilitypro@c4f8b4bbff12cf7ceff50a6321059b6239032b5e/img/alineacion.svg'>";
     const imgrdislexia = "<img style='width:50%; height:auto; margin:auto; display:block;' class='accessibility-imagewidget' src='https://cdn.jsdelivr.net/gh/vtorresmz/accesibilitypro@c4f8b4bbff12cf7ceff50a6321059b6239032b5e/img/dislexia.svg'>";
     const imgrtooltips = "<img style='width:50%; height:auto; margin:auto; display:block;' class='accessibility-imagewidget' src='https://cdn.jsdelivr.net/gh/vtorresmz/accesibilitypro@c4f8b4bbff12cf7ceff50a6321059b6239032b5e/img/alttext.svg'>";
-    const logoaccessibility = "<img style='width:30%; height:auto; margin:auto; display:block;' class='accessibility-imagewidget' src='https://cdn.jsdelivr.net/gh/vtorresmz/accesibilitypro@7112fb33fd80ee75a4c56b3bbb95c7b098ac73ff/img/logo.png'>";
+    const logoaccessibility = "<img style='width:30%; height:auto; margin:auto; display:block;' class='accessibility-imagewidget' src='https://cdn.jsdelivr.net/gh/vtorresmz/accesibilitypro@e8c4f877dee59ea35eaf96276a855ec203566a03/img/logo.png'>";
 
     /*** *Accesibility lector de páginas web ***/
     /*** *Accesibility lector de páginas web ***/
@@ -688,6 +688,17 @@ document.addEventListener("DOMContentLoaded", function() {
     document.body.appendChild(showBtn);
     /*mostrar esconder*/
     /*estilos*/
+
+
+    /*responsivo*/
+    let accessibilitywidgetresponsive = document.querySelector('.accesibility-widget-box-class');
+
+    if (window.innerWidth >= 300 && window.innerWidth <= 990) {
+        accessibilitywidgetresponsive.style.width = '100%';
+        accessibilitywidgetresponsive.style.height = '100vh';
+
+    }
+    /*responsivo*/
 
     /*titulos*/
 
