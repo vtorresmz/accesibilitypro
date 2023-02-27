@@ -252,7 +252,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (colorActual === -1) {
             colorActual = 0;
             document.body.style.backgroundColor = "#ff867c";
-            document.body.style.color = "#333";
+            //document.body.style.color = "#333";
             document.querySelector(".accesibility-daltonismo").innerHTML = '<span>Daltonismo</span>' + imgrcontraste;
 
             for (var i = 0; i < images.length; i++) {
@@ -261,7 +261,7 @@ document.addEventListener("DOMContentLoaded", function() {
         } else if (colorActual === 0) {
             colorActual = 1;
             document.body.style.backgroundColor = "#9ccc9c";
-            document.body.style.color = "#333";
+            //document.body.style.color = "#333";
             document.querySelector(".accesibility-daltonismo").innerHTML = '<span>Daltonismo 2</span>' + imgrcontraste;
 
             for (var i = 0; i < images.length; i++) {
@@ -270,7 +270,7 @@ document.addEventListener("DOMContentLoaded", function() {
         } else if (colorActual === 1) {
             colorActual = 2;
             document.body.style.backgroundColor = "#ffdd57";
-            document.body.style.color = "#333";
+            //document.body.style.color = "#333";
             document.querySelector(".accesibility-daltonismo").innerHTML = '<span>Daltonismo 3</span>' + imgrcontraste;
 
             for (var i = 0; i < images.length; i++) {
@@ -279,7 +279,7 @@ document.addEventListener("DOMContentLoaded", function() {
         } else if (colorActual === 2) {
             colorActual = 3;
             document.body.style.backgroundColor = "#333";
-            document.body.style.color = "#fff";
+            //document.body.style.color = "#fff";
             document.querySelector(".accesibility-daltonismo").innerHTML = '<span>Alto contraste</span>' + imgrcontraste;
 
             for (var i = 0; i < images.length; i++) {
@@ -288,7 +288,7 @@ document.addEventListener("DOMContentLoaded", function() {
         } else if (colorActual === 3) {
             colorActual = 4;
             document.body.style.backgroundColor = "#efefef";
-            document.body.style.color = "#333";
+            //document.body.style.color = "#333";
             document.querySelector(".accesibility-daltonismo").innerHTML = '<span>Alto contraste Blanco</span>' + imgrcontraste;
 
             for (var i = 0; i < images.length; i++) {
